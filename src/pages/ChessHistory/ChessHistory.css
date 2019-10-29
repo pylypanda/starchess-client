@@ -1,0 +1,6 @@
+@media screen and (max-width: 500px) {
+    .champions-tbl td {
+        font-size: 11px;
+    }
+}
+

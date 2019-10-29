@@ -1,0 +1,21 @@
+.hint {
+    background-color: rgb(200, 200, 200);
+    display: inline-block;
+    color: black;
+    font-size: 20px;
+    border: 1px rgb(50, 50, 50) solid;
+}
+.hint span {
+    font-weight: 600;
+}
+.puz-res {
+    text-align: center;
+    font-weight: 700;
+    font-size: 30px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 25px;
+}
+.play-color {
+    text-align: center;
+    font-size: 22px;
+}

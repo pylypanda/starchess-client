@@ -1,0 +1,28 @@
+.top-players-table thead tr td:hover {
+    cursor: pointer;
+}
+.rank {
+    width: 10%;
+}
+.name {
+    width: 45%;
+}
+.country {
+    width: 15%;
+}
+.rating {
+    width: 15%;
+}
+.byear {
+    width: 15%;
+}
+@media screen and (max-width: 1000px) {
+    .top-players-table td {
+        font-size: 15px;
+    }
+}
+@media screen and (max-width: 500px) {
+    .top-players-table td {
+        font-size: 11px;
+    }
+}

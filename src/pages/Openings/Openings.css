@@ -1,0 +1,40 @@
+.opening-name:hover {
+    cursor: pointer;
+    background-color: #212529;
+    transition: ease-out all 0.3s;
+}
+.opening-select button {
+    width: 100%;
+    display: block;
+    border: none;
+}
+.opening-select button:hover {
+    box-shadow: none;
+    background: none;
+}
+.opening-select button:focus {
+    box-shadow: none;
+}
+.opening-select button:active {
+    box-shadow: none;
+}
+.move-ctrl {
+    width: 25%;
+    border: 1px rgb(90, 93, 109) solid;
+}
+.move-tbl td {
+    text-align: center;
+    border-width: 2px;
+}
+.move-tbl .move-td {
+    width: 40%;
+}
+.move-tbl .move-td:hover {
+    cursor: pointer;
+    background-color: #b7b8bb;
+}
+@media screen and (max-width: 1000px) {
+    .opening-description {
+        font-size: 15px;
+    }
+}

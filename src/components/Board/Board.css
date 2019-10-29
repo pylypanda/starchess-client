@@ -1,0 +1,39 @@
+div.file {
+    text-align: center;
+    display: inline-block;
+    width: 12.5%;
+    font-size: 11px;
+}
+.board div.rank {
+    width: 10px;
+    display: flex;
+    height: 12.5%;
+    font-size: 11px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+.not-promoted {
+    display: none;
+}
+.promoted {
+    display: block;
+    z-index: 500;
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    background-color: burlywood;
+    border-top: 1px rgb(82, 56, 0) solid;
+    border-bottom: 1px rgb(82, 56, 0) solid;
+}
+.promoted img {
+    border: 1px rgb(82, 56, 0) solid;
+}
+.promoted img:hover {
+    background-color: rgb(139, 113, 79);
+}
+@media screen and (max-width: 500px) {
+    .promoted img {
+        width: 45px;
+    }
+}

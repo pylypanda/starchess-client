@@ -1,0 +1,20 @@
+.news-pagination li a.page-link {
+    background-color: #4e5458;
+    color: #fff;
+    border-color: rgb(170, 170, 170);
+}
+.news-pagination li a.page-link:hover {
+    background-color: rgb(122, 133, 138);
+}
+.news-pagination li a.page-link:focus {
+    box-shadow: none;
+}
+.news-pagination li.disabled span.page-link {
+    background-color: #4e5458 !important;
+    color: #fff;
+    border-color: rgb(170, 170, 170);
+}
+.news-pagination li.active span {
+    background-color: rgb(138, 139, 146) !important;
+    border-color: rgb(138, 139, 146) !important;
+}

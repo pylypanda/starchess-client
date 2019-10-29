@@ -1,0 +1,47 @@
+html {
+  overflow-y: scroll;
+}
+body {
+  padding: 60px 0 60px;
+  margin: 0;
+  background: url("bg.jpg") center no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;  
+}
+.layout {
+  margin-right: 0;
+}
+.footer {
+  height: 50px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+div {
+  color: #fff;
+}
+a {
+  color: #fff;
+  transition: ease-out all 0.3s;  
+}
+a:hover {
+  text-decoration: none;
+  color: rgb(190, 190, 190);
+}
+.light-gray-btn {
+  background-color: rgb(200, 200, 200) !important;
+  color: #000 !important;
+  font-weight: 600 !important;
+  border-color: #4e555b !important;
+}
+.light-gray-btn:hover {
+  background-color: rgb(150, 150, 150) !important;
+}
+.news-preview .card-body .card-text {
+  overflow: hidden;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  max-height: 4.5rem;
+}
