@@ -19,13 +19,15 @@ class Puzzles extends Component {
             solve: [],
             isSolved: -1,
             allowMoves: true,
-            displayHint: false
+            displayHint: false,
+            isLoading: false
         }
     }
 
     getPuzzlesByType = async (event, puzzlesType) => {
         event.preventDefault();
         this.inc = 0;
+        this.setState({ isLoading: true });
         await api.getPuzzlesByType(puzzlesType).then(puzzles => {
             if(puzzles.data.data.length !== 0) {
                 this.shuffledPuzzles = this.shuffleArray(puzzles.data.data);
@@ -36,7 +38,8 @@ class Puzzles extends Component {
                         solve: this.shuffledPuzzles[0].solve,
                         isSolved: -1,
                         allowMoves: true,
-                        displayHint: false
+                        displayHint: false,
+                        isLoading: false
                     })                
                 } else {
                     this.setState({
@@ -45,7 +48,8 @@ class Puzzles extends Component {
                         solve: this.shuffledPuzzles[0].solve,
                         isSolved: -1,
                         allowMoves: true,
-                        displayHint: false
+                        displayHint: false,
+                        isLoading: false
                     })
                 }                
             }
@@ -127,6 +131,7 @@ class Puzzles extends Component {
         return(
             <>
             <Row>
+                {this.state.isLoading ? <div className='loader centered-hor centered-ver'></div> : null}
                 <Col xs={12} sm={8} lg={7} xl={6}>
                     <Board fen={this.state.fen} orientation={this.state.orientation} solve={this.state.solve} allowMoves={this.state.allowMoves} isSolved={this.isSolved} />                    
                 </Col>

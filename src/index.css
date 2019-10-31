@@ -4,14 +4,56 @@ html {
 body {
   padding: 60px 0 60px;
   margin: 0;
-  background: url("bg.jpg") center no-repeat;
+  background: #000 url("bg.jpg") center center no-repeat;
   background-size: cover;
   background-attachment: fixed;
   min-height: 100vh;
-  position: relative;  
+  position: relative;
+}
+@media screen and (max-width: 500px) {
+  div.jumbotron p {
+    font-size: 14px;
+  }
+  div.jumbotron h3 {
+    font-size: 24px;
+  }
+}
+@media screen and (max-width: 1000px) {
+  div.jumbotron p {
+    font-size: 15px;
+  }
+  div.jumbotron h3 {
+    font-size: 26px;
+  }
 }
 .layout {
   margin-right: 0;
+}
+.loader {
+  position: fixed;
+  border: 14px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 14px solid #3498db;
+  width: 80px;
+  height: 80px;
+  z-index: 100;
+  -moz-animation: spin 2s linear infinite;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+.centered-hor {
+  left: 45%;
+}
+.centered-ver {
+  top: 45%;
+}
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 .footer {
   height: 50px;
@@ -24,7 +66,7 @@ div {
 }
 a {
   color: #fff;
-  transition: ease-out all 0.3s;  
+  transition: ease-out all 0.3s;
 }
 a:hover {
   text-decoration: none;

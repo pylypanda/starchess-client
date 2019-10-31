@@ -8,7 +8,8 @@ class TopPlayers extends Component {
         super(props);
         this.state = {
             top: [],
-            header: ''
+            header: '',
+            isLoading: false
         }
     }
 
@@ -17,55 +18,67 @@ class TopPlayers extends Component {
     }
 
     getTopStandart = async () => {
+        this.setState({ isLoading: true });
         await api.getTopStandartPlayers().then(top => {
             this.setState({
                 top: top.data.data,
-                header: "Standart"
+                header: "Standart",
+                isLoading: false
             });
         });        
     }
 
     getTopStandartWomen = async () => {
+        this.setState({ isLoading: true });
         await api.getTopStandartWomPlayers().then(top => {
             this.setState({
                 top: top.data.data,
-                header: "Standart / Women"
+                header: "Standart / Women",
+                isLoading: false
             });
         });
     }
 
     getTopRapid = async () => {
+        this.setState({ isLoading: true });
         await api.getTopRapidPlayers().then(top => {
             this.setState({
                 top: top.data.data,
-                header: "Rapid"
+                header: "Rapid",
+                isLoading: false
             });
         });      
     }
 
     getTopRapidWomen = async () => {
+        this.setState({ isLoading: true });
         await api.getTopRapidWomPlayers().then(top => {
             this.setState({
                 top: top.data.data,
-                header: "Rapid / Women"
+                header: "Rapid / Women",
+                isLoading: false
             });
         });
     }
 
     getTopBlitz = async () => {
+        this.setState({ isLoading: true });
         await api.getTopBlitzPlayers().then(top => {
             this.setState({
                 top: top.data.data,
-                header: "Blitz"
+                header: "Blitz",
+                isLoading: false
             });
         });        
     }
 
     getTopBlitzWomen = async () => {
+        this.setState({ isLoading: true });
         await api.getTopBlitzWomPlayers().then(top => {
             this.setState({
                 top: top.data.data,
-                header: "Blitz / Women"
+                header: "Blitz / Women",
+                isLoading: false
             });
         });
     }
@@ -102,8 +115,13 @@ class TopPlayers extends Component {
                     {this.topButtons}
                 </Col>
                 <Col xs={12} md={8}>
-                    <h2>{this.state.header}</h2>
-                    <TopPlayersTable top={this.state.top} sortTop={this.sortTop} />
+                    {this.state.isLoading ?
+                        <div className='loader centered-hor'></div> :
+                        <>
+                            <h2>{this.state.header}</h2>
+                            <TopPlayersTable top={this.state.top} sortTop={this.sortTop} />
+                        </>
+                    }
                 </Col>
                 <Col className='d-none d-md-block' md={4}>
                     {this.topButtons}

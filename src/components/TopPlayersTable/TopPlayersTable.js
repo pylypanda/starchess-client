@@ -55,7 +55,6 @@ class TopPlayersTable extends Component {
     }    
 
     render() {
-        console.log('this.props.top: ', this.props.top);
         let top = this.props.top;
         return(
             <Table className='top-players-table' striped bordered size='sm' variant='dark'>

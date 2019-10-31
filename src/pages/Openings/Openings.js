@@ -18,31 +18,36 @@ class Openings extends Component {
             fens: [],
             fen: '',
             openings: [],
-            currOpeningsType: 'Openings type'
+            currOpeningsType: 'Openings type',
+            isLoading: false
         }
     }
 
     getOpeningByName = async (event, openingName) => {
         event.preventDefault();
         window.scrollTo(0, 0);
+        this.setState({ isLoading: true });
         await api.getOpeningByName(openingName).then(opening => {
             this.inc = 0;
             this.setState({
                 name: opening.data.data.name,
                 moves: opening.data.data.moves,
                 fens: opening.data.data.fens,
-                fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+                fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+                isLoading: false
             });
         });
     }
 
     getOpeningsByType = async (event, openingsType) => {
         event.preventDefault();
+        this.setState({ isLoading: true });
         await api.getOpeningsByType(openingsType).then(openings => {
             this.inc = 0;
             this.setState({
                 fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
-                openings: openings.data.data
+                openings: openings.data.data,
+                isLoading: false
             })
         })
     }
@@ -103,7 +108,7 @@ class Openings extends Component {
     }
 
     render() {
-        const { name, moves, fen, openings } = this.state;
+        const { name, moves, fen, openings, isLoading } = this.state;
         let filteredMoves = [];
         let temp = [];
         for(const m in moves) {
@@ -118,6 +123,7 @@ class Openings extends Component {
         return(
             <>
             <Row>
+                {isLoading ? <div className='loader centered-hor centered-ver'></div> : null}
                 <Col className='ml-3 ml-sm-0 mb-sm-3' xs={11} sm={8} lg={7} xl={5}>
                     {name === '' ? null : <h4>{name}</h4>}
                     <Board fen={fen} allowMoves={false} />

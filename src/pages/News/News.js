@@ -9,6 +9,7 @@ class News extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            isLoading: false,
             news: [],
             postsPerPage: 6,
             currentPage: 1
@@ -20,8 +21,10 @@ class News extends Component {
     }
 
     getAllNews = async () => {
+        this.setState({ isLoading: true });
         await api.getAllNews().then(news => {
             this.setState({
+                isLoading: false,
                 news: news.data.data
             })            
         })
@@ -35,14 +38,10 @@ class News extends Component {
     }
 
     render() {
-        const { news } = this.state;
-        console.log('news: ', news);
-
+        const { news, isLoading } = this.state;
         const indexOfLastPost = this.state.currentPage * this.state.postsPerPage;
         const indexOfFirstPost = indexOfLastPost - this.state.postsPerPage;
         const currentNews = news.slice(indexOfFirstPost, indexOfLastPost);
-
-        console.log('currentNews: ', currentNews);
 
         return(
             <>
@@ -53,6 +52,7 @@ class News extends Component {
                 paginate={this.paginate}
             />
             <Row>
+                {isLoading ? <div className='loader centered-hor centered-ver'></div> : null}
                 {currentNews.map((news) => {
                     return(
                         <Col xs={12} lg={6} className='news-preview pb-3'>

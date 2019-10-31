@@ -46,8 +46,8 @@ class Learn extends Component {
                     <Col xs={12} md={6} lg={8}>                         
                         <h3>Setup</h3>
                         <p>By convention, chess game pieces are divided into white and black sets. Each set consists of 16 pieces: one king, one queen, two rooks, two bishops, two knights, and eight pawns. The pieces are set out as shown in the photo.</p>
-                        <div style={{textAlign: 'center'}}>
-                            <Image src={require('../../img/rules/start-pos.jpg')} className='d-md-none my-1' width='70%' alt='Board' title='Start position' fluid />
+                        <div className='d-md-none my-3' style={{textAlign: 'center'}}>
+                            <Image src={require('../../img/rules/start-pos.jpg')} width='70%' alt='Board' title='Start position' fluid />
                         </div>
                         <p>The game is played on a square board of eight rows (called ranks, denoted <b>1</b> to <b>8</b> from bottom to top according to White's perspective) and eight columns (called files, denoted <b>a</b> to <b>h</b> from left to right according to White's perspective). The 64 squares alternate in color and are referred to as light and dark squares. Each queen starts on a square of its own color.</p>
                     </Col>
@@ -156,7 +156,7 @@ class Learn extends Component {
                     </Col>
                 </Row>
                 <Row id='castling' className='pt-3'>
-                    <Col xs={12} sm={7} lg={8}>
+                    <Col xs={12} md={7} lg={8}>
                         <h3>Castling</h3>
                         <p>Once in every game, each king can make a special move, known as castling. Castling consists of moving the king two squares along the first rank toward a rook and then placing the rook on the last square that the king just crossed. Castling is permissible if the following conditions are met:</p>
                         <ul>
@@ -165,44 +165,44 @@ class Learn extends Component {
                             <li>The king cannot be in check, nor can the king pass through any square that is under attack by an enemy piece, or move to a square that would result in check. (Note that castling is permitted if the rook is under attack, or if the rook crosses an attacked square.)</li>
                         </ul>
                     </Col>
-                    <Col className='d-sm-none' xs={2}></Col>
-                    <Col className='pt-sm-5 pt-xl-0' xs={8} sm={5} lg={4}>
+                    <Col className='d-md-none' xs={2}></Col>
+                    <Col className='pt-md-5 pt-xl-0' xs={8} md={5} lg={4}>
                         <Image src={require('../../img/rules/castling.jpg')} alt='Castling' title='Castling' fluid />
                     </Col>
                 </Row>
                 <Row id='en-passant' className='pt-3'>
-                    <Col xs={12} sm={7} lg={8}>
+                    <Col xs={12} md={7} lg={8}>
                         <h3>En passant</h3>
                         <p>When a pawn makes a two-step advance from its starting position and there is an opponent's pawn on a square next to the destination square on an adjacent file, then the opponent's pawn can capture it en passant ("in passing"), moving to the square the pawn passed over. This can be done only on the very next turn; otherwise the right to do so is forfeited.</p>
                     </Col>
-                    <Col className='d-sm-none' xs={2}></Col>
-                    <Col className='pt-sm-5 pt-xl-0' xs={8} sm={5} lg={4}>
+                    <Col className='d-md-none' xs={2}></Col>
+                    <Col className='pt-sm-5 pt-xl-0' xs={8} md={5} lg={4}>
                         <Image src={require('../../img/rules/en-passant.jpg')} alt='En passant' title='En passant' fluid />
                     </Col>
                 </Row>
                 <Row id='promotion' className='pt-3'>
-                    <Col xs={12} sm={7} lg={8}>
+                    <Col xs={12} md={7} lg={8}>
                         <h3>Promotion</h3>
                         <p>When a pawn advances to the eighth rank, as a part of the move it is promoted and must be exchanged for the player's choice of queen, rook, bishop, or knight of the same color. Usually, the pawn is chosen to be promoted to a queen, but in some cases another piece is chosen. There is no restriction on the piece promoted to, so it is possible to have more pieces of the same type than at the start of the game.</p>
                     </Col>
-                    <Col className='d-sm-none' xs={2}></Col>
-                    <Col className='pt-sm-5 pt-xl-0' xs={8} sm={5} lg={4}>
+                    <Col className='d-md-none' xs={2}></Col>
+                    <Col className='pt-md-5 pt-xl-0' xs={8} md={5} lg={4}>
                         <Image src={require('../../img/rules/promotion.jpg')} alt='Promotion' title='Promotion' fluid />
                     </Col>
                 </Row>
                 <Row id='check' className='pt-3'>
-                    <Col xs={12} sm={7} lg={8}>
+                    <Col xs={12} md={7} lg={8}>
                         <h3>Check</h3>
                         <p>When a king is under immediate attack by one or two of the opponent's pieces, it is said to be in check. A move in response to a check is legal only if it results in a position where the king is no longer in check. This can involve capturing the checking piece; interposing a piece between the checking piece and the king; or moving the king to a square where it is not under attack. Castling is not a permissible response to a check.</p>
                         <p>The object of the game is to checkmate the opponent; this occurs when the opponent's king is in check, and there is no legal way to remove it from attack. It is never legal for a player to make a move that puts or leaves the player's own king in check.</p>
                     </Col>
-                    <Col className='d-sm-none' xs={2}></Col>
-                    <Col className='pt-sm-5 pt-xl-0' xs={8} sm={5} lg={4}>
+                    <Col className='d-md-none' xs={2}></Col>
+                    <Col className='pt-md-5 pt-xl-0' xs={8} md={5} lg={4}>
                         <Image src={require('../../img/rules/check.jpg')} alt='Check' title='Check' fluid />
                     </Col>
                 </Row>
                 <Row id='end' className='pt-3'>
-                    <Col xs={12} sm={7} lg={8}>
+                    <Col xs={12} md={7} lg={8}>
                         <h3>End of the game</h3>
                         <h5>Win</h5>
                         <p>Games can be won in the following ways:</p>
@@ -222,10 +222,10 @@ class Learn extends Component {
                             <li>Draw on time: In games with a time control, the game is drawn if a player is out of time and the opponent has no theoretical possibility to checkmate the player.</li>
                         </ul>
                     </Col>
-                    <Col className='d-sm-none' xs={2}></Col>
-                    <Col className='pt-sm-5 pt-xl-0' xs={8} sm={5} lg={4}>
+                    <Col className='d-md-none' xs={2}></Col>
+                    <Col className='pt-md-5 pt-xl-0' xs={8} md={5} lg={4}>
                         <Image src={require('../../img/rules/checkmate.jpg')} alt='Checkmate' title='Checkmate' fluid />
-                        <p className='pb-sm-5' style={{textAlign: 'center'}}>Checkmate</p>
+                        <p className='pb-sm-2 pb-md-5' style={{textAlign: 'center'}}>Checkmate</p>
                         <Image src={require('../../img/rules/stalemate.jpg')} alt='Stalemate' title='Stalemate' fluid />
                         <p style={{textAlign: 'center'}}>Stalemate</p>
                     </Col>

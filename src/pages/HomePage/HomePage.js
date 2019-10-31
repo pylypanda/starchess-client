@@ -8,7 +8,8 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      news: []
+      news: [],
+      isLoading: false
     }
   }
 
@@ -18,11 +19,12 @@ class HomePage extends Component {
   }
 
   getSomeNews = async (quantity) => {
+    this.setState({ isLoading: true });
     await api.getSomeNews(quantity).then(news => {
       this.setState({
-        news: news.data.data
+        news: news.data.data,
+        isLoading: false
       })
-      console.log(this.state.news);
     })
   }
 
@@ -31,6 +33,7 @@ class HomePage extends Component {
       <Row>
         <Col xs={12} md={7} lg={8}>
           <Row>
+            {this.state.isLoading ? <div className='loader centered-hor centered-ver'></div> : null}
             {this.state.news.map((news, index) => {
               if(index !== 0)
                 return(

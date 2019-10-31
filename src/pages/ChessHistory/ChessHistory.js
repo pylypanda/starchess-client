@@ -10,7 +10,10 @@ class ChessHistory extends Component {
         this.state = {
             champions: [],
             oldLeaders: [],
-            wChampions: []
+            wChampions: [],
+            isLoadingWC: false,
+            isLoadingWWC: false,
+            isLoadingOL: false
         }
     }
 
@@ -22,25 +25,31 @@ class ChessHistory extends Component {
     }
 
     getChampions = async () => {
+        this.setState({ isLoadingWC: true });
         await api.getChampions().then(champions => {
             this.setState({
-                champions: champions.data.data
+                champions: champions.data.data,
+                isLoadingWC: false
             })
         })
     }
 
     getWomChampions = async () => {
+        this.setState({ isLoadingWWC: true });
         await api.getWomChampions().then(champions => {
             this.setState({
-                wChampions: champions.data.data
+                wChampions: champions.data.data,
+                isLoadingWWC: false
             })
         })
     }
 
     getOldLeaders = async () => {
+        this.setState({ isLoadingOL: true });
         await api.getOldLeaders().then(oldLeaders => {
             this.setState({
-                oldLeaders: oldLeaders.data.data
+                oldLeaders: oldLeaders.data.data,
+                isLoadingOL: false
             })
         })
     }
@@ -67,28 +76,31 @@ class ChessHistory extends Component {
                 <Row className='my-3'>
                     <Col xs={12} lg={10} className='ml-lg-5'>
                         <h3>Leading players before the World Championships</h3>
-                        <Table className='champions-tbl my-3' striped bordered size='sm' variant='dark' style={{fontSize: '14px'}}>
-                            <thead>
-                                <tr style={{fontWeight: 'bold'}}>
-                                    <td>Name</td>
-                                    <td>Year</td>
-                                    <td>Country</td>
-                                    <td>Age</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.oldLeaders.map(leader => {
-                                    return(
-                                        <tr>
-                                            <td>{leader.name}</td>
-                                            <td>{leader.year}</td>
-                                            <td>{leader.country}</td>
-                                            <td>{leader.age}</td>
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </Table>                        
+                        {this.state.isLoadingOL ?
+                            <div className='loader centered-hor'></div> :
+                            <Table className='champions-tbl my-3' striped bordered size='sm' variant='dark' style={{fontSize: '14px'}}>
+                                <thead>
+                                    <tr style={{fontWeight: 'bold'}}>
+                                        <td>Name</td>
+                                        <td>Year</td>
+                                        <td>Country</td>
+                                        <td>Age</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.oldLeaders.map(leader => {
+                                        return(
+                                            <tr>
+                                                <td>{leader.name}</td>
+                                                <td>{leader.year}</td>
+                                                <td>{leader.country}</td>
+                                                <td>{leader.age}</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </Table>
+                        }
                     </Col>
                 </Row>
                 <p>Deeper insight into the nature of chess came with two younger players. American Paul Morphy, an extraordinary chess prodigy, won against all important competitors, including Anderssen, during his short chess career between 1857 and 1863. Morphy's success stemmed from a combination of brilliant attacks and sound strategy; he intuitively knew how to prepare attacks. Prague-born Wilhelm Steinitz later described how to avoid weaknesses in one's own position and how to create and exploit such weaknesses in the opponent's position. In addition to his theoretical achievements, Steinitz founded an important tradition: his triumph over the leading Polish-German master Johannes Zukertort in 1886 is regarded as the first official World Chess Championship. Steinitz lost his crown in 1894 to a much younger German mathematician Emanuel Lasker, who maintained this title for 27 years, the longest tenure of all World Champions.</p>
@@ -106,26 +118,29 @@ class ChessHistory extends Component {
                 <Row className='my-3'>
                     <Col xs={12} lg={10} className='ml-lg-5'>
                         <h3>Women's World Champions</h3>
-                        <Table className='champions-tbl my-3' striped bordered size='sm' variant='dark' style={{fontSize: '14px'}}>
-                            <thead>
-                                <tr style={{fontWeight: 'bold'}}>
-                                    <td>Name</td>
-                                    <td>Years</td>
-                                    <td>Country</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.wChampions.map(champion => {
-                                    return(
-                                        <tr>
-                                            <td>{champion.name}</td>
-                                            <td>{champion.years}</td>
-                                            <td>{champion.country}</td>
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </Table>                        
+                        {this.state.isLoadingWWC === true ?
+                            <div className='loader centered-hor'></div> :
+                            <Table className='champions-tbl my-3' striped bordered size='sm' variant='dark' style={{fontSize: '14px'}}>
+                                <thead>
+                                    <tr style={{fontWeight: 'bold'}}>
+                                        <td>Name</td>
+                                        <td>Years</td>
+                                        <td>Country</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.wChampions.map(champion => {
+                                        return(
+                                            <tr>
+                                                <td>{champion.name}</td>
+                                                <td>{champion.years}</td>
+                                                <td>{champion.country}</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </Table>
+                        }
                     </Col>
                 </Row>
                 <p>In 1993, Garry Kasparov and Nigel Short broke with FIDE to organize their own match for the title and formed a competing Professional Chess Association (PCA). From then until 2006, there were two simultaneous World Champions and World Championships: the PCA or Classical champion extending the Steinitzian tradition in which the current champion plays a challenger in a series of many games; the other following FIDE's new format of many players competing in a tournament to determine the champion.</p>
@@ -153,30 +168,33 @@ class ChessHistory extends Component {
                 <Row className='my-3'>
                     <Col xs={12} lg={10} className='ml-lg-5'>
                         <h3>Undisputed World Champions</h3>
-                        <Table className='champions-tbl my-3' striped bordered size='sm' variant='dark' style={{fontSize: '14px'}}>
-                            <thead>
-                                <tr style={{fontWeight: 'bold'}}>
-                                    <td>#</td>
-                                    <td>Name</td>
-                                    <td>Years</td>
-                                    <td>Country</td>
-                                    <td>Age</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {this.state.champions.map(champion => {
-                                    return(
-                                        <tr>
-                                            <td>{champion.number}</td>
-                                            <td>{champion.name}</td>
-                                            <td>{champion.year}</td>
-                                            <td>{champion.country}</td>
-                                            <td>{champion.age}</td>
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </Table>                        
+                        {this.state.isLoadingWC === true ?
+                            <div className='loader centered-hor'></div> :
+                            <Table className='champions-tbl my-3' striped bordered size='sm' variant='dark' style={{fontSize: '14px'}}>
+                                <thead>
+                                    <tr style={{fontWeight: 'bold'}}>
+                                        <td>#</td>
+                                        <td>Name</td>
+                                        <td>Years</td>
+                                        <td>Country</td>
+                                        <td>Age</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.champions.map(champion => {
+                                        return(
+                                            <tr>
+                                                <td>{champion.number}</td>
+                                                <td>{champion.name}</td>
+                                                <td>{champion.year}</td>
+                                                <td>{champion.country}</td>
+                                                <td>{champion.age}</td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </Table>
+                        }
                     </Col>
                 </Row>
             </Jumbotron>

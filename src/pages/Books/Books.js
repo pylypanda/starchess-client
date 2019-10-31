@@ -6,7 +6,8 @@ class Books extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            books: []
+            books: [],
+            isLoading: false
         }
         this.temp = '../../img/books/fischer-teaches.jpg'
     }
@@ -16,9 +17,11 @@ class Books extends Component {
     }
 
     getBooks = async () => {
+        this.setState({ isLoading: true });
         await api.getBooks().then(books => {
             this.setState({
-                books: books.data.data
+                books: books.data.data,
+                isLoading: false
             })
         })
     }
@@ -28,6 +31,7 @@ class Books extends Component {
             <Jumbotron style={{backgroundColor: 'rgba(80, 80, 80, 0.8)'}}>
                 <p>The number of books written about chess is tremendous. While that can be great for the chess world, it poses practical issues for many fans. Most chess players have their own favorites, but how do you know which books are perfect for you?</p>
                 <p className='mb-5'>Here are classic chess books that every fan should know.</p>
+                {this.state.isLoading ? <div className='loader centered-hor'></div> : null}
                 {this.state.books.map((book, index) => {
                     return(
                         <div className='my-3'>
