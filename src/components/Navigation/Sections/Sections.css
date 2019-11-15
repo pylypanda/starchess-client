@@ -19,3 +19,23 @@
     color: rgb(255, 200, 149);
     text-decoration: underline;
 }
+@media screen and (min-width: 1700px) {
+    .site-sections {
+        font-size: 19px;
+    }
+}
+@media screen and (min-width: 1800px) {
+    .site-sections {
+        font-size: 20px;
+    }
+}
+@media screen and (min-width: 2000px) {
+    .site-sections {
+        font-size: 22px;
+    }
+}
+@media screen and (min-width: 2300px) {
+    .site-sections {
+        font-size: 25px;
+    }
+}

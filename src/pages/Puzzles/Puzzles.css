@@ -19,3 +19,27 @@
     text-align: center;
     font-size: 22px;
 }
+@media screen and (min-width: 1430px) {
+    .puz-ctrl{
+        font-size: 22px;
+    }
+}
+@media screen and (min-width: 1700px) {
+    .hint {
+        font-size: 25px;
+    }
+    .puz-res {
+        font-size: 40px;
+    }
+    .puz-ctrl {
+        font-size: 25px;
+    }
+    .play-color {
+        font-size: 28px;
+    }
+}
+@media screen and (min-width: 2300px) {
+    .puz-ctrl{
+        font-size: 30px;
+    }
+}

@@ -189,13 +189,13 @@ class Puzzles extends Component {
                             <Button onClick={(event) => this.getPuzzlesByType(event, 'compos')} className='light-gray-btn mb-3' size='lg' block>
                                 Compositions
                             </Button>
-                            <Button onClick={(event) => this.tryAgain(event)} className='w-25' title='Try again'>
+                            <Button onClick={(event) => this.tryAgain(event)} className='w-25 puz-ctrl' title='Try again'>
                                 <FontAwesomeIcon icon={faRedo} />
                             </Button>
-                            <Button onClick={(event) => this.nextPuzzle(event)} className='w-25 mx-1' title='Next'>
+                            <Button onClick={(event) => this.nextPuzzle(event)} className='w-25 mx-1 puz-ctrl' title='Next'>
                                 <FontAwesomeIcon icon={faChevronRight} />
                             </Button>
-                            <Button onClick={(event) => this.displayHint(event)} className='w-25' title='View solve'>
+                            <Button onClick={(event) => this.displayHint(event)} className='w-25 puz-ctrl' title='View solve'>
                                 <FontAwesomeIcon icon={faLightbulb} />
                             </Button>
                         </ButtonToolbar>

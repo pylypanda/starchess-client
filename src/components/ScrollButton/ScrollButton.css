@@ -9,6 +9,14 @@
     top: 460px;
     z-index: 100;
 }
+@media screen and (min-width: 1600px) {
+    .scroll-btn {
+        top: 550px;
+        left: 20%;
+        width: 80px !important;
+        height: 100px !important;
+    }
+}
 .scroll-btn:hover {
     transition: ease-out all 0.3s;
     opacity: 1;

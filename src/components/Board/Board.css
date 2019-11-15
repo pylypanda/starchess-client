@@ -13,6 +13,16 @@ div.file {
     margin: 0;
     padding: 0;
 }
+@media screen and (min-width: 1400px) {
+    div.file, .board div.rank {
+        font-size: 13px;
+    }
+}
+@media screen and (min-width: 2300px) {
+    div.file, .board div.rank {
+        font-size: 15px;
+    }
+}
 .not-promoted {
     display: none;
 }
@@ -35,5 +45,15 @@ div.file {
 @media screen and (max-width: 500px) {
     .promoted img {
         width: 45px;
+    }
+}
+@media screen and (min-width: 2000px) {
+    .promoted img {
+        width: 75px;
+    }
+}
+@media screen and (min-width: 2400px) {
+    .promoted img {
+        width: 90px;
     }
 }
