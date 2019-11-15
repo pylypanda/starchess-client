@@ -14,6 +14,10 @@ class Board extends Component {
         if(this.props.fen) {
             game.load(this.props.fen);
         }
+        this.moveW = new Audio();
+        this.moveW.src = 'http://play.chessbase.com/Common/Media/Sounds/Board/move1.mp3';
+        this.capture = new Audio();
+        this.capture.src = 'http://play.chessbase.com/Common/Media/Sounds/Board/capture1.mp3';
         this.orientation = this.props.orientation;
         this.solve = [];
         this.from = '';
@@ -45,6 +49,10 @@ class Board extends Component {
                 allowMoves: nextProps.allowMoves,
                 promotionClass: 'not-promoted'
             });
+            if(nextProps.move === 'capture')
+                this.capture.play();
+            else if(nextProps.move === 'move')
+                this.moveW.play();
         }
     }
 
@@ -126,6 +134,7 @@ class Board extends Component {
                 this.setState({
                     pieces: this.getNewPosition(game.fen())
                 })
+                this.playSound();
                 this.checkSolve();
             }
         }
@@ -144,6 +153,7 @@ class Board extends Component {
             allowMoves: true,
             promotionClass: 'not-promoted'
         })
+        this.playSound();
         this.checkSolve();
     }
 
@@ -157,6 +167,7 @@ class Board extends Component {
                         this.setState({
                             pieces: this.getNewPosition(game.fen())
                         })
+                        this.playSound();
                     }, 600);
                 } else {
                     this.setState({
@@ -191,6 +202,16 @@ class Board extends Component {
                 this.files.push(<div className='file'>{String.fromCharCode(105 - i)}</div>)
                 this.ranks.push(<div className='rank'>{i}</div>)
             }
+        }
+    }
+
+    playSound() {
+        if(game.history().length > 0) {
+            if(game.history()[game.history().length - 1].indexOf('x') !== -1) {
+                this.capture.play();
+            } else {
+                this.moveW.play();
+            }            
         }
     }
 

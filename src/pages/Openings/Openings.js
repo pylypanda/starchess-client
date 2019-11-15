@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Col, Row, Button, Table, DropdownButton, Dropdown, Jumbotron } from 'react-bootstrap';
+import { Col, Row, Button, Table, DropdownButton, Dropdown, Jumbotron } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleRight, faAngleLeft, faAngleDoubleRight, faAngleDoubleLeft } from '@fortawesome/free-solid-svg-icons';
 import Board from '../../components/Board/Board';
@@ -11,6 +11,7 @@ class Openings extends Component {
     constructor(props) {
         super(props);
         this.inc = 0;
+        this.move = '';
         this.state = {
             name: '',
             description: 'There are dozens of different openings, and hundreds of variants. These vary widely in character from quiet positional play to wild tactical play. Choose one of them and find the perfect opening for You.',
@@ -26,6 +27,7 @@ class Openings extends Component {
     getOpeningByName = async (event, openingName) => {
         event.preventDefault();
         window.scrollTo(0, 0);
+        this.move = '';
         this.setState({ isLoading: true });
         await api.getOpeningByName(openingName).then(opening => {
             this.inc = 0;
@@ -41,6 +43,7 @@ class Openings extends Component {
 
     getOpeningsByType = async (event, openingsType) => {
         event.preventDefault();
+        this.move = '';
         this.setState({ isLoading: true });
         await api.getOpeningsByType(openingsType).then(openings => {
             this.inc = 0;
@@ -56,7 +59,11 @@ class Openings extends Component {
         event.preventDefault();
         const fens = this.state.fens;
         if(this.inc < fens.length - 1) {
-            this.inc++;            
+            if(this.state.moves[this.inc].indexOf('x') !== -1)
+                this.move = 'capture';
+            else
+                this.move = 'move';
+            this.inc++;
             this.setState({
                 fen: fens[this.inc]
             });
@@ -67,7 +74,12 @@ class Openings extends Component {
         event.preventDefault();
         const fens = this.state.fens;
         if(this.inc > 0) {
-            this.inc--;            
+            if(this.state.moves[this.inc])
+                if(this.state.moves[this.inc].indexOf('x') !== -1)
+                    this.move = 'capture';
+                else
+                    this.move = 'move';
+            this.inc--;
             this.setState({
                 fen: fens[this.inc]
             });
@@ -78,6 +90,10 @@ class Openings extends Component {
         event.preventDefault();
         const fens = this.state.fens;
         if(fens.length) {
+            if(this.inc !== 0)
+                this.move = 'move';
+            else
+                this.move = '';
             this.inc = 0;
             this.setState({
                 fen: fens[0]
@@ -89,6 +105,10 @@ class Openings extends Component {
         event.preventDefault();
         const fens = this.state.fens;
         if(fens.length) {
+            if(this.inc !== fens.length - 1)
+                this.move = 'move';
+            else
+                this.move = '';
             this.inc = fens.length - 1;
             this.setState({
                 fen: fens[this.inc]
@@ -100,6 +120,14 @@ class Openings extends Component {
         event.preventDefault();
         const fens = this.state.fens;
         if(fens.length) {
+            if(this.inc !== index) {
+                if(this.state.moves[index - 1].indexOf('x') !== -1)
+                    this.move = 'capture';
+                else
+                    this.move = 'move';                
+            } else {
+                this.move = '';
+            }
             this.inc = index;
             this.setState({
                 fen: fens[this.inc]
@@ -126,7 +154,7 @@ class Openings extends Component {
                 {isLoading ? <div className='loader centered-hor centered-ver'></div> : null}
                 <Col className='ml-3 ml-sm-0 mb-sm-3' xs={11} sm={8} lg={7} xl={5}>
                     {name === '' ? null : <h4>{name}</h4>}
-                    <Board fen={fen} allowMoves={false} />
+                    <Board fen={fen} move={this.move} allowMoves={false} />
                 </Col>
                 <Col className='mr-xl-5 pl-sm-0 pl-lg-3' xs={12} sm={4} lg={5} xl={3}>
                     <Button className='move-ctrl' onClick={(event) => this.moveToStart(event)} variant='secondary' title='Start position'>
@@ -164,7 +192,7 @@ class Openings extends Component {
                         </tbody>
                     </Table>
                     <Jumbotron className='px-2 py-2 opening-description' style={{backgroundColor: 'rgba(80, 80, 80, 0.8)'}}>
-                        {this.state.description}
+                        <p>{this.state.description}</p>
                     </Jumbotron>
                 </Col>
                 <Col xs={12} xl={3}>
