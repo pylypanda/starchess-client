@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <Router>
         <NavBar />
-          <Row className='pt-2 layout'>
+          <Row className='pt-2 mb-3 layout'>
             <Col className='d-none d-md-block' md={3} xl={2}>
               <Sections />
             </Col>
