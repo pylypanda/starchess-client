@@ -31,7 +31,8 @@ class OneFullNews extends Component {
         return(
             <Row>
                 <Col xs={12} lg={10}>
-                    {this.state.isLoading ?
+                    {
+                        this.state.isLoading ? // render loading-spinner
                         <div className='loader centered-hor centered-ver'></div> :
                         <NewsCard {...this.state.news} />
                     }

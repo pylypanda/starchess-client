@@ -18,13 +18,13 @@ class Learn extends Component {
 
     loadPosition(event, pos) {
         event.preventDefault();
-        if(pos === 'start')
+        if(pos === 'start') // start position
             this.setState({fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'})
-                else if(pos === 'castling')
+                else if(pos === 'castling') // position for castling
                     this.setState({fen: 'r3k2r/pppppppp/8/8/8/8/PPPPPPPP/R3K2R w KQkq - 0 1'})
-                        else if(pos === 'promotion')
+                        else if(pos === 'promotion') // position for promotion
                             this.setState({fen: '8/PPPPPPPP/8/8/8/k7/8/K7 w - - 0 1'})
-                                else if(pos === 'passant')
+                                else if(pos === 'passant') // position for take in passing
                                     this.setState({fen: '7k/8/8/8/1p1p1p1p/8/P1P1P1P1/7K w - - 0 1'})
     }
     
@@ -32,7 +32,7 @@ class Learn extends Component {
         return(
             <Jumbotron style={{backgroundColor: 'rgba(80, 80, 80, 0.8)'}}>
                 <h3>Contents</h3>
-                <ul>
+                <ul> { /* nav */ }
                     <li><a href='#setup'>Setup</a></li>
                     <li><a href='#movement'>Movement</a></li>
                     <li><a href='#castling'>Castling</a></li>
@@ -231,6 +231,7 @@ class Learn extends Component {
                     </Col>
                 </Row>
                 <Row id='practice'>
+                    { /* xs device */ }
                     <Col className='d-md-none' xs={12}>
                         <h3>Practice</h3>
                         <Button onClick={(event) => this.loadPosition(event, 'start')} className='light-gray-btn' size='md' block>Start position</Button>
@@ -243,6 +244,7 @@ class Learn extends Component {
                         <h3 className='d-none d-md-block'>Practice</h3>
                         <Board fen={this.state.fen} />
                     </Col>
+                    { /* md+ device */ }
                     <Col className='d-none d-md-block pt-md-5' md={4} lg={5} xl={6}>
                         <Button onClick={(event) => this.loadPosition(event, 'start')} className='light-gray-btn' size='md' block>Start position</Button>
                         <Button onClick={(event) => this.loadPosition(event, 'castling')} className='light-gray-btn' size='md' block>Castling</Button>

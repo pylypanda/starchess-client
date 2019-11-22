@@ -12,11 +12,11 @@ class Puzzles extends Component {
     constructor(props) {
         super(props);
         this.shuffledPuzzles = [];
-        this.inc = 0;
+        this.inc = 0; // current puzzle index
         this.state = {
-            orientation: '',
-            fen: '8/8/8/8/8/8/8/8 w - - 0 1',
-            solve: [],
+            orientation: '', // white/black
+            fen: '8/8/8/8/8/8/8/8 w - - 0 1', // empty board
+            solve: [], // right moves
             isSolved: -1,
             allowMoves: true,
             displayHint: false,
@@ -75,7 +75,7 @@ class Puzzles extends Component {
             } else {
                 this.inc++;
             }
-            if(this.shuffledPuzzles[this.inc].start.indexOf('w') === -1) {
+            if(this.shuffledPuzzles[this.inc].start.indexOf('w') === -1) { // check fen orientation; 'w'=white, 'b'=black
                 this.setState({
                     orientation: 'black',
                     fen: this.shuffledPuzzles[this.inc].start,
@@ -97,7 +97,7 @@ class Puzzles extends Component {
         }
     }
 
-    tryAgain(event) {
+    tryAgain(event) { // return on start
         event.preventDefault();
         if(this.shuffledPuzzles.length !== 0) {
             this.setState({
@@ -131,7 +131,9 @@ class Puzzles extends Component {
         return(
             <>
             <Row>
-                {this.state.isLoading ? <div className='loader centered-hor centered-ver'></div> : null}
+                { // render loading-spinner
+                    this.state.isLoading ? <div className='loader centered-hor centered-ver'></div> : null
+                }
                 <Col xs={12} sm={8} lg={7} xl={6}>
                     <Board fen={this.state.fen} orientation={this.state.orientation} solve={this.state.solve} allowMoves={this.state.allowMoves} isSolved={this.isSolved} />                    
                 </Col>
@@ -146,7 +148,7 @@ class Puzzles extends Component {
                         <Button onClick={(event) => this.displayHint(event)} className='w-25' title='View solve'>
                             <FontAwesomeIcon icon={faLightbulb} />
                         </Button>
-                        {this.state.displayHint ?
+                        {this.state.displayHint ? // hint
                             <div className='hint mt-2 px-3'>Solve: {this.state.solve.map((solve, index) => {
                                 if(index % 2 === 0)
                                     return(
@@ -154,14 +156,16 @@ class Puzzles extends Component {
                                     )
                                 })}
                             </div> : null}
-                        {this.state.isSolved === 0 ?
+                        {this.state.isSolved === 0 ? // result
                             <div className='puz-res mt-2 py-2'>Wrong move</div> :
                                 this.state.isSolved === 1 ?
-                                    <div className='puz-res mt-2 py-2'>Puzzle is solved</div> : null}
-                        {this.state.orientation === 'white' ?
+                                    <div className='puz-res mt-2 py-2'>Puzzle is solved</div> : null
+                        }
+                        {this.state.orientation === 'white' ? // orientation
                             <div className='play-color mt-2'>You play <b>white</b></div> :
                                 this.state.orientation === 'black' ?
-                                    <div className='play-color mt-2'>You play <b>black</b></div> : null}
+                                    <div className='play-color mt-2'>You play <b>black</b></div> : null
+                        }
                         <Button onClick={(event) => this.getPuzzlesByType(event, 'easy')} className='light-gray-btn mt-2' size='md' block>
                             Easy
                         </Button>
@@ -199,11 +203,11 @@ class Puzzles extends Component {
                                 <FontAwesomeIcon icon={faLightbulb} />
                             </Button>
                         </ButtonToolbar>
-                        {this.state.orientation === 'white' ?
+                        {this.state.orientation === 'white' ? // orientation
                             <div className='play-color mt-3'>You play <b>white</b></div> :
                                 this.state.orientation === 'black' ?
                                     <div className='play-color mt-3'>You play <b>black</b></div> : null}
-                        {this.state.displayHint ?
+                        {this.state.displayHint ? // hint
                             <div className='hint mt-3 px-3'>Solve: {this.state.solve.map((solve, index) => {
                                 if(index % 2 === 0)
                                     return(
@@ -211,7 +215,7 @@ class Puzzles extends Component {
                                     )
                                 })}
                             </div> : null}
-                        {this.state.isSolved === 0 ?
+                        {this.state.isSolved === 0 ? // result
                             <div className='puz-res mt-3 py-3'>Wrong move</div> : 
                                 this.state.isSolved === 1 ?
                                     <div className='puz-res mt-3 py-3'>Puzzle is solved</div> : null}                        

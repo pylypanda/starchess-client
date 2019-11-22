@@ -41,7 +41,7 @@ class News extends Component {
         const { news, isLoading } = this.state;
         const indexOfLastPost = this.state.currentPage * this.state.postsPerPage;
         const indexOfFirstPost = indexOfLastPost - this.state.postsPerPage;
-        const currentNews = news.slice(indexOfFirstPost, indexOfLastPost);
+        const currentNews = news.slice(indexOfFirstPost, indexOfLastPost); // news on one page
 
         return(
             <>
@@ -52,7 +52,9 @@ class News extends Component {
                 paginate={this.paginate}
             />
             <Row>
-                {isLoading ? <div className='loader centered-hor centered-ver'></div> : null}
+                { // render loading-spinner
+                    isLoading ? <div className='loader centered-hor centered-ver'></div> : null
+                }
                 {currentNews.map((news) => {
                     return(
                         <Col xs={12} lg={6} className='news-preview pb-3'>

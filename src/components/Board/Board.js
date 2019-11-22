@@ -5,23 +5,23 @@ import * as Game from 'chess.js';
 
 import './Board.css';
 
-const game = new Game();
+const game = new Game(); // chess engine
 
 class Board extends Component {
     constructor(props) {
         super(props);
-        game.reset();
+        game.reset(); // return to default
         if(this.props.fen) {
-            game.load(this.props.fen);
+            game.load(this.props.fen); 
         }
-        this.moveW = new Audio();
-        this.moveW.src = 'http://play.chessbase.com/Common/Media/Sounds/Board/move1.mp3';
-        this.capture = new Audio();
+        this.move = new Audio(); // move sound
+        this.move.src = 'http://play.chessbase.com/Common/Media/Sounds/Board/move1.mp3';
+        this.capture = new Audio(); // capture sound
         this.capture.src = 'http://play.chessbase.com/Common/Media/Sounds/Board/capture1.mp3';
-        this.orientation = this.props.orientation;
-        this.solve = [];
-        this.from = '';
-        this.to = '';
+        this.orientation = this.props.orientation; // white/black
+        this.solve = []; // puzzle solve
+        this.from = ''; // from square
+        this.to = ''; // to square
         this.files = [];
         this.ranks = [];
         this.state = {
@@ -52,7 +52,7 @@ class Board extends Component {
             if(nextProps.move === 'capture')
                 this.capture.play();
             else if(nextProps.move === 'move')
-                this.moveW.play();
+                this.move.play();
         }
     }
 
@@ -60,12 +60,12 @@ class Board extends Component {
         this.drawLabels();
     }
 
-    getNewPosition(fen) {
+    getNewPosition(fen) { // parse FEN of current position to 'react-chess' lineup notation
         fen = fen
             .slice(0, fen.indexOf(' '))
             .split('/');
         let newPosition = [];
-        if(this.orientation !== 'black') {
+        if(this.orientation !== 'black') { // black
             for(let i = 0; i < 8; i++) {
                 let k = 0;
                 for(let j = 0; j < fen[i].length; j++) {
@@ -76,7 +76,7 @@ class Board extends Component {
                     }
                 }
             }
-        } else {
+        } else { // white
             for(let i = 0; i < 8; i++) {
                 let k = 0;
                 for(let j = 0; j < fen[i].length; j++) {
@@ -93,13 +93,13 @@ class Board extends Component {
 
     handleMovePiece(piece, fromSquare, toSquare) {
         let move, fromSquareReverse, toSquareReverse;
-        if(this.orientation !== 'black') {
+        if(this.orientation !== 'black') { // make a move by the chess.js engine
             move = game.move({
                 from: fromSquare,
                 to: toSquare,
                 promotion: 'q'
             });
-        } else {
+        } else { // make a chess.js move with reverse (black) orientation
             fromSquareReverse = String.fromCharCode(201 - fromSquare.charCodeAt(0), 105 - fromSquare.charCodeAt(1));
             toSquareReverse = String.fromCharCode(201 - toSquare.charCodeAt(0), 105 - toSquare.charCodeAt(1));
             move = game.move({
@@ -109,38 +109,38 @@ class Board extends Component {
             });
         }
 
-        if(move === null) {
+        if(move === null) { // illegal move
             const currPos = this.state.pieces;
             this.setState({pieces: []});
-            this.setState({pieces: currPos});
-        } else {
-            if(game.history()[game.history().length - 1].indexOf('=Q') !== -1) {
-                if(this.orientation !== 'black') {
+            this.setState({pieces: currPos}); // return position before move
+        } else { // legal move
+            if(game.history()[game.history().length - 1].indexOf('=Q') !== -1) { // if last move was promotion
+                if(this.orientation !== 'black') { // black
                     this.from = fromSquare;
                     this.to = toSquare;
-                    this.setState({
+                    this.setState({ // show promotion window
                         allowMoves: false,
                         promotionClass: 'promoted'
                     })
-                } else {
+                } else { // white
                     this.from = fromSquareReverse;
                     this.to = toSquareReverse;
-                    this.setState({
+                    this.setState({ // show promotion window
                         allowMoves: false,
                         promotionClass: 'promoted'
                     })
                 }
-            } else {
+            } else { // if last move wasn't promotion (default move)
                 this.setState({
                     pieces: this.getNewPosition(game.fen())
                 })
                 this.playSound();
-                this.checkSolve();
+                this.checkSolve(); // if puzzle mode
             }
         }
     }
 
-    promoteTo(event, piece) {
+    promoteTo(event, piece) { // promote to chosen piece
         event.preventDefault();
         game.undo();
         game.move({
@@ -154,7 +154,7 @@ class Board extends Component {
             promotionClass: 'not-promoted'
         })
         this.playSound();
-        this.checkSolve();
+        this.checkSolve(); // if puzzle mode
     }
 
     checkSolve() {
@@ -191,13 +191,13 @@ class Board extends Component {
         }
     }
 
-    drawLabels() {
+    drawLabels() { // draw board markup
         if(this.orientation !== 'black') {
-            for(let i = 1; i < 9; i++) {
+            for(let i = 1; i < 9; i++) { // white:  files: a-h; ranks: 8-1 (top down)
                 this.files.push(<div className='file'>{String.fromCharCode(96 + i)}</div>)
                 this.ranks.push(<div className='rank'>{9 - i}</div>)
             }
-        } else {
+        } else { // black:  files: h-a; ranks: 1-8 (top down)
             for(let i = 1; i < 9; i++) {
                 this.files.push(<div className='file'>{String.fromCharCode(105 - i)}</div>)
                 this.ranks.push(<div className='rank'>{i}</div>)
@@ -207,10 +207,10 @@ class Board extends Component {
 
     playSound() {
         if(game.history().length > 0) {
-            if(game.history()[game.history().length - 1].indexOf('x') !== -1) {
+            if(game.history()[game.history().length - 1].indexOf('x') !== -1) { // 'x' in move notation is capture
                 this.capture.play();
             } else {
-                this.moveW.play();
+                this.move.play();
             }            
         }
     }
@@ -223,6 +223,7 @@ class Board extends Component {
                     {this.ranks}
                 </Col>                
                 <Col xs={11} className='pl-0'>
+                    { /* Promotion window */ }
                     <div className={this.state.promotionClass}>
                         <img onClick={(event) => this.promoteTo(event, 'q')} src={require('../../img/white-queen.png')} width='60px' height='auto' alt='Queen' />
                         <img onClick={(event) => this.promoteTo(event, 'r')} src={require('../../img/white-rock.png')} width='60px' height='auto' alt='Rock' />
@@ -241,7 +242,6 @@ class Board extends Component {
                 </Col>
             </Row>
             </>
-
         );
     }
 }

@@ -24,7 +24,7 @@ class ChessHistory extends Component {
         this.getOldLeaders();
     }
 
-    getChampions = async () => {
+    getChampions = async () => { // get champions
         this.setState({ isLoadingWC: true });
         await api.getChampions().then(champions => {
             this.setState({
@@ -34,7 +34,7 @@ class ChessHistory extends Component {
         })
     }
 
-    getWomChampions = async () => {
+    getWomChampions = async () => { // get women's champions
         this.setState({ isLoadingWWC: true });
         await api.getWomChampions().then(champions => {
             this.setState({
@@ -44,7 +44,7 @@ class ChessHistory extends Component {
         })
     }
 
-    getOldLeaders = async () => {
+    getOldLeaders = async () => { // get leading players before the World Chess Championships
         this.setState({ isLoadingOL: true });
         await api.getOldLeaders().then(oldLeaders => {
             this.setState({
@@ -76,8 +76,11 @@ class ChessHistory extends Component {
                 <Row className='my-3'>
                     <Col xs={12} lg={10} className='ml-lg-5'>
                         <h3>Leading players before the World Championships</h3>
-                        {this.state.isLoadingOL ?
+                        {
+                            this.state.isLoadingOL ?
+                            // render loading-spinner
                             <div className='loader centered-hor'></div> :
+                            // else
                             <Table className='champions-tbl my-3' striped bordered size='sm' variant='dark' style={{fontSize: '14px'}}>
                                 <thead>
                                     <tr style={{fontWeight: 'bold'}}>
@@ -118,8 +121,11 @@ class ChessHistory extends Component {
                 <Row className='my-3'>
                     <Col xs={12} lg={10} className='ml-lg-5'>
                         <h3>Women's World Champions</h3>
-                        {this.state.isLoadingWWC === true ?
+                        {
+                            this.state.isLoadingWWC === true ?
+                            // render loading-spinner
                             <div className='loader centered-hor'></div> :
+                            // else
                             <Table className='champions-tbl my-3' striped bordered size='sm' variant='dark' style={{fontSize: '14px'}}>
                                 <thead>
                                     <tr style={{fontWeight: 'bold'}}>
@@ -168,8 +174,11 @@ class ChessHistory extends Component {
                 <Row className='my-3'>
                     <Col xs={12} lg={10} className='ml-lg-5'>
                         <h3>Undisputed World Champions</h3>
-                        {this.state.isLoadingWC === true ?
+                        {
+                            this.state.isLoadingWC === true ?
+                            // render loading-spinner
                             <div className='loader centered-hor'></div> :
+                            // else
                             <Table className='champions-tbl my-3' striped bordered size='sm' variant='dark' style={{fontSize: '14px'}}>
                                 <thead>
                                     <tr style={{fontWeight: 'bold'}}>

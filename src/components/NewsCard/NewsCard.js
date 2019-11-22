@@ -3,9 +3,9 @@ import { Card } from 'react-bootstrap';
 
 const NewsCard = news => {
     const { img, title, author, link, article, date } = news;
-    let articleChecked = [];
+    let articleChecked = []; // array of all article paragraphs
     if(article)
-        articleChecked = article.split('||');
+        articleChecked = article.split('||'); // '||' in text means 'new paragraph'
     return(
         <Card style={{backgroundColor: 'rgba(200, 200, 200, 0.9)'}}>
             <Card.Img variant='top' src={img} />

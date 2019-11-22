@@ -31,7 +31,9 @@ class Books extends Component {
             <Jumbotron style={{backgroundColor: 'rgba(80, 80, 80, 0.8)'}}>
                 <p>The number of books written about chess is tremendous. While that can be great for the chess world, it poses practical issues for many fans. Most chess players have their own favorites, but how do you know which books are perfect for you?</p>
                 <p className='mb-5'>Here are classic chess books that every fan should know.</p>
-                {this.state.isLoading ? <div className='loader centered-hor'></div> : null}
+                { // render loading-spinner
+                    this.state.isLoading ? <div className='loader centered-hor'></div> : null
+                }
                 {this.state.books.map((book, index) => {
                     return(
                         <div className='my-3'>

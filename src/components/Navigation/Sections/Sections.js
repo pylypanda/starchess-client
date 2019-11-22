@@ -25,7 +25,7 @@ class Sections extends Component {
         window.removeEventListener('scroll', this.handleScroll);
     }
 
-    handleScroll = (event) => {
+    handleScroll = (event) => { // show/remove scroll-to-top button
         if(window.pageYOffset > 600) {
             if(!this.state.displayScrollButton) {
                 this.setState({

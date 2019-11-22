@@ -1,3 +1,4 @@
+/* board markup */
 div.file {
     text-align: center;
     display: inline-block;
@@ -23,6 +24,8 @@ div.file {
         font-size: 15px;
     }
 }
+
+/* promotion window */
 .not-promoted {
     display: none;
 }

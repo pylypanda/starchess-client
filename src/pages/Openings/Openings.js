@@ -10,15 +10,15 @@ import api from '../../api';
 class Openings extends Component {
     constructor(props) {
         super(props);
-        this.inc = 0;
-        this.move = '';
+        this.inc = 0; // move index
+        this.move = ''; // move sound ('move' or 'capture')
         this.state = {
-            name: '',
+            name: '', // current opening name
             description: 'There are dozens of different openings, and hundreds of variants. These vary widely in character from quiet positional play to wild tactical play. Choose one of them and find the perfect opening for You.',
-            moves: [],
-            fens: [],
-            fen: '',
-            openings: [],
+            moves: [], // all moves of opening
+            fens: [], // fen notations for each move
+            fen: '', // current position
+            openings: [], // all openings of chosen type
             currOpeningsType: 'Openings type',
             isLoading: false
         }
@@ -35,7 +35,7 @@ class Openings extends Component {
                 name: opening.data.data.name,
                 moves: opening.data.data.moves,
                 fens: opening.data.data.fens,
-                fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+                fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', // start position
                 isLoading: false
             });
         });
@@ -48,18 +48,18 @@ class Openings extends Component {
         await api.getOpeningsByType(openingsType).then(openings => {
             this.inc = 0;
             this.setState({
-                fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1',
+                fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1', // start position
                 openings: openings.data.data,
                 isLoading: false
             })
         })
     }
 
-    moveForward = (event) => {
+    moveForward = (event) => { // next position
         event.preventDefault();
         const fens = this.state.fens;
         if(this.inc < fens.length - 1) {
-            if(this.state.moves[this.inc].indexOf('x') !== -1)
+            if(this.state.moves[this.inc].indexOf('x') !== -1) // check for move sound
                 this.move = 'capture';
             else
                 this.move = 'move';
@@ -70,12 +70,12 @@ class Openings extends Component {
         }
     }
 
-    moveBack = (event) => {
+    moveBack = (event) => { // previous position
         event.preventDefault();
         const fens = this.state.fens;
         if(this.inc > 0) {
             if(this.state.moves[this.inc])
-                if(this.state.moves[this.inc].indexOf('x') !== -1)
+                if(this.state.moves[this.inc].indexOf('x') !== -1) // check for move sound
                     this.move = 'capture';
                 else
                     this.move = 'move';
@@ -86,11 +86,11 @@ class Openings extends Component {
         }
     }
 
-    moveToStart = (event) => {
+    moveToStart = (event) => { // return to start position
         event.preventDefault();
         const fens = this.state.fens;
         if(fens.length) {
-            if(this.inc !== 0)
+            if(this.inc !== 0) // check for move sound
                 this.move = 'move';
             else
                 this.move = '';
@@ -101,11 +101,11 @@ class Openings extends Component {
         }
     }
 
-    moveToEnd = (event) => {
+    moveToEnd = (event) => { // end position
         event.preventDefault();
         const fens = this.state.fens;
         if(fens.length) {
-            if(this.inc !== fens.length - 1)
+            if(this.inc !== fens.length - 1) // check for move sound
                 this.move = 'move';
             else
                 this.move = '';
@@ -121,7 +121,7 @@ class Openings extends Component {
         const fens = this.state.fens;
         if(fens.length) {
             if(this.inc !== index) {
-                if(this.state.moves[index - 1].indexOf('x') !== -1)
+                if(this.state.moves[index - 1].indexOf('x') !== -1) // check for move sound
                     this.move = 'capture';
                 else
                     this.move = 'move';                
@@ -137,9 +137,9 @@ class Openings extends Component {
 
     render() {
         const { name, moves, fen, openings, isLoading } = this.state;
-        let filteredMoves = [];
-        let temp = [];
-        for(const m in moves) {
+        let filteredMoves = []; // arr of move pairs (white/black) for moves table
+        let temp = []; // 2 moves: white & black response
+        for(const m in moves) { // for moves table
             temp.push(moves[m]);
             if(m % 2 !== 0) {
                 filteredMoves.push(temp);
@@ -151,7 +151,9 @@ class Openings extends Component {
         return(
             <>
             <Row>
-                {isLoading ? <div className='loader centered-hor centered-ver'></div> : null}
+                { // render loading-spinner
+                    isLoading ? <div className='loader centered-hor centered-ver'></div> : null
+                }
                 <Col className='ml-3 ml-sm-0 mb-sm-3' xs={11} sm={8} lg={7} xl={5}>
                     {name === '' ? null : <h4>{name}</h4>}
                     <Board fen={fen} move={this.move} allowMoves={false} />

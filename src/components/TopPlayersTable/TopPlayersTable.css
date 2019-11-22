@@ -1,6 +1,8 @@
 .top-players-table thead tr td:hover {
     cursor: pointer;
 }
+
+/* Cols width */
 .rank {
     width: 10%;
 }
@@ -16,6 +18,8 @@
 .byear {
     width: 15%;
 }
+
+/* Responsive font */
 @media screen and (max-width: 1000px) {
     .top-players-table td {
         font-size: 15px;

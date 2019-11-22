@@ -33,7 +33,9 @@ class HomePage extends Component {
       <Row>
         <Col xs={12} md={7} lg={8}>
           <Row>
-            {this.state.isLoading ? <div className='loader centered-hor centered-ver'></div> : null}
+            { // render loading-spinner
+              this.state.isLoading ? <div className='loader centered-hor centered-ver'></div> : null
+            }
             {this.state.news.map((news, index) => {
               if(index !== 0)
                 return(

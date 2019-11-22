@@ -57,6 +57,8 @@ body {
     font-size: 50px;
   }
 }
+
+/* loading spinner */
 .loader {
   position: fixed;
   border: 14px solid #f3f3f3;
@@ -83,15 +85,20 @@ body {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+/* footer */
 .footer {
   height: 50px;
   position: absolute;
   bottom: 0;
   width: 100%;
 }
+
 div {
   color: #fff;
 }
+
+/* links */
 a {
   color: #fff;
   transition: ease-out all 0.3s;
@@ -100,6 +107,8 @@ a:hover {
   text-decoration: none;
   color: rgb(190, 190, 190);
 }
+
+/* main style for buttons */
 .light-gray-btn {
   background-color: rgb(200, 200, 200) !important;
   color: #000 !important;
@@ -109,6 +118,8 @@ a:hover {
 .light-gray-btn:hover {
   background-color: rgb(150, 150, 150) !important;
 }
+
+
 @media screen and (min-width: 1700px) {
   .light-gray-btn {
     font-size: 20px;
@@ -119,12 +130,16 @@ a:hover {
     font-size: 25px;
   }
 }
+
+/* News */
+/* show just first 3 news text lines */
 .news-preview .card-body .card-text {
   overflow: hidden;
   font-size: 1rem;
   line-height: 1.5rem;
   max-height: 4.5rem;
 }
+/* news author link */
 .news-author {
   color: #6c757d;
 }

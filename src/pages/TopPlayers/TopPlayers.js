@@ -83,28 +83,28 @@ class TopPlayers extends Component {
         });
     }
 
-    sortTop = (sorted) => {
+    sortTop = (sorted) => { // callback from TopPlayersTable
         this.setState({
             top: sorted
         });
     }
 
     topButtons = <>
-    <div className='d-sm-inline-block d-md-block'>
-        <h4 className='mt-md-3'>Standart:</h4>
-        <Button onClick={this.getTopStandart} className='light-gray-btn' variant="warning" size='md' block>Top 100 Players</Button>
-        <Button onClick={this.getTopStandartWomen} className='light-gray-btn' variant="warning" size='md' block>Top 100 Women</Button>        
-    </div>
-    <div className='d-sm-inline-block d-md-block'>
-        <h4 className='mt-md-3'>Rapid:</h4>
-        <Button onClick={this.getTopRapid} className='light-gray-btn' variant="warning" size='md' block>Top 100 Players</Button>
-        <Button onClick={this.getTopRapidWomen} className='light-gray-btn' variant="warning" size='md' block>Top 100 Women</Button>        
-    </div>
-    <div className='d-sm-inline-block d-md-block'>
-        <h4 className='mt-md-3'>Blitz:</h4>
-        <Button onClick={this.getTopBlitz} className='light-gray-btn' variant="warning" size='md' block>Top 100 Players</Button>
-        <Button onClick={this.getTopBlitzWomen} className='light-gray-btn' variant="warning" size='md' block>Top 100 Women</Button>        
-    </div>
+        <div className='d-sm-inline-block d-md-block'>
+            <h4 className='mt-md-3'>Standart:</h4>
+            <Button onClick={this.getTopStandart} className='light-gray-btn' variant="warning" size='md' block>Top 100 Players</Button>
+            <Button onClick={this.getTopStandartWomen} className='light-gray-btn' variant="warning" size='md' block>Top 100 Women</Button>        
+        </div>
+        <div className='d-sm-inline-block d-md-block'>
+            <h4 className='mt-md-3'>Rapid:</h4>
+            <Button onClick={this.getTopRapid} className='light-gray-btn' variant="warning" size='md' block>Top 100 Players</Button>
+            <Button onClick={this.getTopRapidWomen} className='light-gray-btn' variant="warning" size='md' block>Top 100 Women</Button>        
+        </div>
+        <div className='d-sm-inline-block d-md-block'>
+            <h4 className='mt-md-3'>Blitz:</h4>
+            <Button onClick={this.getTopBlitz} className='light-gray-btn' variant="warning" size='md' block>Top 100 Players</Button>
+            <Button onClick={this.getTopBlitzWomen} className='light-gray-btn' variant="warning" size='md' block>Top 100 Women</Button>        
+        </div>
     </>
 
     render() {
@@ -115,12 +115,13 @@ class TopPlayers extends Component {
                     {this.topButtons}
                 </Col>
                 <Col xs={12} md={8}>
-                    {this.state.isLoading ?
+                    { // render loading-spinner
+                    this.state.isLoading ?
                         <div className='loader centered-hor'></div> :
-                        <>
-                            <h2>{this.state.header}</h2>
-                            <TopPlayersTable top={this.state.top} sortTop={this.sortTop} />
-                        </>
+                            <>
+                                <h2>{this.state.header}</h2>
+                                <TopPlayersTable top={this.state.top} sortTop={this.sortTop} />
+                            </>
                     }
                 </Col>
                 <Col className='d-none d-md-block' md={4}>
