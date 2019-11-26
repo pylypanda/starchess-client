@@ -162,10 +162,14 @@ class Board extends Component {
             const history = game.history();
             if(history.length !== this.solve.length) {
                 if(history[history.length - 1] === this.solve[history.length - 1]) {
+                    this.setState({
+                        allowMoves: false
+                    })
                     setTimeout(() => {
                         game.move(this.solve[history.length]);
                         this.setState({
-                            pieces: this.getNewPosition(game.fen())
+                            pieces: this.getNewPosition(game.fen()),
+                            allowMoves: true
                         })
                         this.playSound();
                     }, 600);
